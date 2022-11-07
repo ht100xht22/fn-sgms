@@ -103,7 +103,3 @@ faas-cli up -f <function-name>.yml
 ```
 5. Navigate to [http://localhost:8080/ui/](http://localhost:8080/ui/)
 6. Start interactive with the implemented functions.
-
-## Contributer
-https://www.contributor-covenant.org/
-https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/setting-guidelines-for-repository-contributors
