@@ -6,7 +6,7 @@ SGMS has come to use with a need to migrate their current monolithic architectur
 This project is developed together as a case study for a thesis made by [Arif Jehda-Oh](https://github.com/arifjehoh) and [Nils Falck](https://github.com/nilfal).
 
 ### About Project
-This project is on the course IX1351, Data Storage Paradigms, provided by [Leif Lindbäck](https://github.com/leifll] at KTH Royal Institute of Technology.
+This project is on the course IX1351, Data Storage Paradigms, provided by [Leif Lindbäck](https://github.com/leifll) at KTH Royal Institute of Technology.
 The project is about designing and implementing an application that communicates to a database service developed by the students.
 The project is about implementing features:
 - Receive applications from an external user.
