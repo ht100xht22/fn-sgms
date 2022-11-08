@@ -1,0 +1,4 @@
+language: java11
+welcome_message: |
+  You have created a function using template created by @arifjehoh.
+  Navigate to Application.java file to start implementing your function.
