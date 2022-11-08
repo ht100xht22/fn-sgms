@@ -31,7 +31,7 @@ The function builds on using Spring Cloud Function and Java Database Connectivit
 The orchestration and communication between applications based on using [OpenFaaS](https://www.openfaas.com/), [Kubernetes](https://kubernetes.io/), [Kubernetes-in-Docker, KinD](https://kind.sigs.k8s.io/), [Arkade](https://github.com/alexellis/arkade), and [Docker](https://www.docker.com/)
 
 ### Roadmap
-- [ ] Database connection.
+- [x] Database connection.
 - [ ] Create simple CRUD functions by using [Strangler Fig Pattern](https://martinfowler.com/bliki/StranglerFigApplication.html)
 - [ ] Create a client which uses the function and display to view.
 - [ ] Create the rest of the CRUD functions needed to fulfill the project's features.
