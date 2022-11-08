@@ -88,6 +88,45 @@ Copy the password and enter in the webpage.
 2. Start interactive with the implemented functions.
 
 ### How to Use the Project
+#### Add Database connectivity
+1. Start up a postgresql database container.
+```bash
+sh scripts/db-start.sh
+```
+2. Add dependency to function.
+```xml
+<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-data-jpa</artifactId>
+	<version>2.7.5</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+<dependency>
+	<groupId>org.postgresql</groupId>
+	<artifactId>postgresql</artifactId>
+	<version>42.5.0</version>
+</dependency>
+```
+3. Add database jdbc connection to function, navigate to the function you want to add connection with the database. Navigate to `application.yaml`. Add this to the end of the code.
+```yaml
+spring:
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/sgms"
+    username: "postgres"
+    password: "postgres"
+```
+4. (OPTIONAL) To close the databas run the script.
+```bash
+sh scripts/db-stop.sh
+```
+#### Working with Function-as-a-Service
 1. Download the Spring Cloud Function template for OpenFaas
 ```bash
 faas-cli template pull https://github.com/arifjehoh/openfaas-sb-function-template
