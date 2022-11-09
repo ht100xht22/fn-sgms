@@ -1,0 +1,44 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://127.0.0.1:8080
+functions:
+  rent:
+    lang: dockerfile
+    handler: ./rent
+    image: arifjo/rent:latest
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+
+  lessons:
+    lang: dockerfile
+    handler: ./lessons
+    image: arifjo/lessons:latest
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+
+  instruments-info:
+    lang: dockerfile
+    handler: ./instruments-info
+    image: arifjo/instruments-info:latest
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+
+  instruments:
+    lang: dockerfile
+    handler: ./instruments
+    image: arifjo/instruments:latest
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+
+  stundents-info:
+    lang: dockerfile
+    handler: ./stundents-info
+    image: arifjo/stundents-info:latest
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
