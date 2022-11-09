@@ -3,11 +3,11 @@ spring:
     database: postgresql
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
   datasource:
-    url: "jdbc:postgresql://localhost:5432/sgms"
+    url: "jdbc:postgresql://${DB_HOST:localhost:5432/sgms}"
     username: "postgres"
-    password: "postgres"
+    password: "${DB_PASSWORD:postgres}"
 server:
   port: 8888
 management:

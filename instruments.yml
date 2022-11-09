@@ -7,4 +7,7 @@ functions:
     lang: dockerfile
     handler: ./instruments
     image: arifjo/instruments:latest
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
 

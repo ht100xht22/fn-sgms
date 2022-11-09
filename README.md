@@ -89,11 +89,31 @@ Copy the password and enter in the webpage.
 
 ### How to Use the Project
 #### Add Database connectivity
-1. Start up a postgresql database container.
+1. (LOCAL) Start up a postgresql database container.
 ```bash
 sh scripts/db-start.sh
 ```
-2. Add dependency to function.
+2. (KUBERNETES) Install postgresql.
+```bash
+arkade install postgresql
+```
+3. (KUBERNETES) Export postgresql password from kubernetes.
+```bash
+export POSTGRES_PASSWORD=$(kubectl get secret --namespace default postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
+```
+4. (KUBERNETES) Start postgresql session
+```bash
+kubectl run postgresql-client --rm --tty -i --restart='Never' --namespace default --image docker.io/bitnami/postgresql:15.0.0-debian-11-r3 --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host postgresql -U postgres -d postgres -p 5432
+```
+5. (KUBERNETES) Open a new terminal and execute port forward.
+```bash
+kubectl port-forward --namespace default svc/postgresql 5432:5432 & PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U postgres -d postgres -p 5432
+```
+6. (KUBERNETES) Export hostname with port and database.
+```bash
+export DB_HOST=$(kubectl get svc postgresql -ojsonpath='{.spec.clusterIP}'):5432/postgres
+```
+7. Add dependency to function.
 ```xml
 <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
 <dependency>
@@ -109,20 +129,26 @@ sh scripts/db-start.sh
 	<version>42.5.0</version>
 </dependency>
 ```
-3. Add database jdbc connection to function, navigate to the function you want to add connection with the database. Navigate to `application.yaml`. Add this to the end of the code.
+8. Add database jdbc connection to function, navigate to the function you want to add connection with the database. Navigate to `application.yaml`. Add this to the end of the code.
 ```yaml
 spring:
   jpa:
     database: postgresql
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
   datasource:
-    url: "jdbc:postgresql://localhost:5432/sgms"
+    url: "jdbc:postgresql://${DB_HOST:localhost:5432/sgms}"
     username: "postgres"
-    password: "postgres"
+    password: "${DB_PASSWORD:postgres}"
 ```
-4. (OPTIONAL) To close the databas run the script.
+9. Add environment to all FaaS yaml file.
+```yaml
+environment:
+   DB_HOST: ${DB_HOST}
+   DB_PASSWORD: ${POSTGRES_PASSWORD}
+```
+10. (OPTIONAL) To close the databas run the script.
 ```bash
 sh scripts/db-stop.sh
 ```
