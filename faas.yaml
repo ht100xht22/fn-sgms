@@ -41,7 +41,7 @@ functions:
     image: arifjo/stundents-info:latest
     environment:
       DB_HOST: ${DB_HOST}
-      DB_PASSWORD: ${POSTGRES_PASSWORD}  booking:
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
 
   booking:
     lang: dockerfile
@@ -49,4 +49,4 @@ functions:
     image: arifjo/booking:latest
     environment:
       DB_HOST: ${DB_HOST}
-      DB_PASSWORD: ${POSTGRES_PASSWORD}  booking:
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
