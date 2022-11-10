@@ -42,3 +42,11 @@ functions:
     environment:
       DB_HOST: ${DB_HOST}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
+
+  booking:
+    lang: dockerfile
+    handler: ./booking
+    image: arifjo/booking:latest
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}

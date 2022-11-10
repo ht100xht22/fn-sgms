@@ -1,0 +1,12 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://127.0.0.1:8080
+functions:
+  booking:
+    lang: dockerfile
+    handler: ./booking
+    image: arifjo/booking:latest
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
