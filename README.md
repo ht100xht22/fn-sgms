@@ -51,7 +51,7 @@ kind create cluster
 ```
 6. Install OpenFaaS with Arkade
 ```bash
-arkade install OpenFaaS.
+arkade install openFaas
 ```
 7. Enter the command and wait for everything to be running.
 ```bash
