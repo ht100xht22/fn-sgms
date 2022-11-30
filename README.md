@@ -42,46 +42,46 @@ The orchestration and communication between applications based on using [OpenFaa
 ```bash
 git clone https://github.com/ht100xht22/fn-sgms.git
 ```
-2. Install Docker
-3. Install Arkade
-4. Install KinD
-5. Create a cluster with KinD.
+2. Run the script
 ```bash
-kind create cluster
+make init
 ```
-6. Install OpenFaaS with Arkade
+or run the script directly
 ```bash
-arkade install openFaas
+sh scripts/init.sh
 ```
-7. Enter the command and wait for everything to be running.
+3. (KUBERNETES) Install postgresql.
 ```bash
-kubectl -n openfaas get deployments -l "release=openfaas, app=openfaas" -w
+arkade install postgresql
 ```
-8. Enter the command to install `faas-cli`.
+4. (KUBERNETES) Export postgresql password from kubernetes.
 ```bash
-curl -SLsf https://cli.openfaas.com | sudo sh
+export POSTGRES_PASSWORD=$(kubectl get secret --namespace default postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
 ```
-9. Rollout a gateway.
+5. (KUBERNETES) Export hostname with port and database.
 ```bash
-kubectl rollout status -n openfaas deploy/gateway
+export DB_HOST=$(kubectl get svc postgresql -ojsonpath='{.spec.clusterIP}'):5432/postgres
 ```
-10. Open up a another terminal window
-11. Enter the command.
+6. (KUBERNETES) Start postgresql session
 ```bash
-kubectl port-forward -n openfaas svc/gateway 8080:8080 &
+kubectl run postgresql-client --restart='Never' --namespace default --image docker.io/bitnami/postgresql:15.0.0-debian-11-r3 --env="POSTGRESQL_PASSWORD=$POSTGRES_PASSWORD" 
 ```
-12. Execute the command to generate a password for openfaas ui
+7. (KUBERNETES) Open a new terminal and execute port forward.
 ```bash
-PASSWORD=$(kubectl get secret -n openfaas basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode; echo)
-echo -n $PASSWORD | faas-cli login --username admin --password-stdin
+kubectl port-forward -d --namespace default svc/postgresql 5432:5432
 ```
-13. Navigate to [http://localhost:8080/ui/](http://localhost:8080/ui/)
-14. Enter your credentials. You can find the password from the terminal you been working on with the command
+8. Install all funcitons
 ```bash
-echo $PASSWORD
+make run
 ```
-Copy the password and enter in the webpage.
-15. You are now ready to start working
+or run the script directly
+```bash
+sh scripts/init-fn.sh
+```
+9. Curl to function (currently returns empty value as there is no data added)
+```bash
+curl http://localhost:8080/function/instruments
+```
 
 ### How to Run the Project
 1. Navigate to [http://localhost:8080/ui/](http://localhost:8080/ui/)
@@ -168,3 +168,5 @@ faas-cli up -f <function-name>.yml
 ```
 5. Navigate to [http://localhost:8080/ui/](http://localhost:8080/ui/)
 6. Start interactive with the implemented functions.
+
+
