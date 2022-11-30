@@ -32,10 +32,10 @@ The orchestration and communication between applications based on using [OpenFaa
 
 ### Roadmap
 - [x] Database connection.
-- [ ] Create simple CRUD functions by using [Strangler Fig Pattern](https://martinfowler.com/bliki/StranglerFigApplication.html)
-- [ ] Create a client which uses the function and display to view.
-- [ ] Create the rest of the CRUD functions needed to fulfill the project's features.
-- [ ] Migrating [Sound Good Music School, monolithic edition](https://github.com/ht100xht22/monolith).
+- [x] Create simple CRUD functions by using [Strangler Fig Pattern](https://martinfowler.com/bliki/StranglerFigApplication.html)
+- [x] Create a client which uses the function and display to view.
+- [x] Create the rest of the CRUD functions needed to fulfill the project's features.
+- [x] Migrating [Sound Good Music School, monolithic edition](https://github.com/ht100xht22/monolith).
 
 ## How to Install
 1. Clone the project.
